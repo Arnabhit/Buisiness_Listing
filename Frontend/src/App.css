@@ -1,0 +1,10 @@
+.business-dropdown {
+  width: 300px; /* Increase width as needed */
+  appearance: none; /* Remove the default dropdown icon */
+}
+
+.business-dropdown::-ms-expand {
+  display: none; /* Remove the default dropdown icon in IE */
+}
+
+
