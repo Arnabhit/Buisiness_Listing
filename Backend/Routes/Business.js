@@ -5,4 +5,5 @@ const router = express.Router();
 
 router.post('/business', authMiddleware, handleBusinessCreate);
 
+
 module.exports = router;

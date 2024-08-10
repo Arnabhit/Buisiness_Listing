@@ -13,7 +13,7 @@ const BusinessSchema = new mongoose.Schema({
   },
   contact: {
     type: String,
-    required: true,
+    //required: true,
     trim: true,
   },
   email: {
@@ -27,9 +27,6 @@ const BusinessSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
- 
- 
- 
   website: {
     type: String,
     trim: true,
@@ -43,52 +40,56 @@ const BusinessSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-//   reviews: [
-//     {
-//       user: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         ref: 'User',
-//         required: true,
-//       },
-//       rating: {
-//         type: Number,
-//         required: true,
-//         min: 1,
-//         max: 5,
-//       },
-//       comment: {
-//         type: String,
-//         trim: true,
-//       },
-//       date: {
-//         type: Date,
-//         default: Date.now,
-//       },
-//     },
-//   ],
-//   location: {
-//     type: {
-//       type: String,
-//       enum: ['Point'],
-//       required: true,
-//     },
-//     coordinates: {
-//       type: [Number],
-//       required: true,
-//     },
-//   },
-owner: {
-  type: mongoose.Schema.Types.ObjectId,
-  //required: true,
-  ref: 'User'
-},
+  tokens: [{
+    token: {
+      type: String,
+      required: true,
+    },
+  }],
+  reviews: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+       // required: true,
+      },
+      rating: {
+        type: Number,
+        //required: true,
+        min: 1,
+        max: 5,
+      },
+      comment: {
+        type: String,
+        trim: true,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  // location: {
+  //   type: {
+  //     type: String,
+  //     enum: ['Point'],
+  //     required: true,
+  //   },
+  //   coordinates: {
+  //     type: [Number],
+  //     required: true,
+  //   },
+  // },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  
-},{timestamps: true});
-
+}, { timestamps: true });
 
 const Business = mongoose.model('Business', BusinessSchema);
 

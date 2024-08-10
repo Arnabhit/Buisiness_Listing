@@ -9,6 +9,9 @@ import Signup from './pages/Signup';
 import Signin from './pages/Signin';
 import SearchBar from './components/Searchbar';
 import WriteReview from './pages/WriteReview';
+import Analytics from './pages/Analytics';
+import BusinessList from './components/BusinessList';
+import WriteReviewForm from './pages/WriteReviewForm';
 
 
 function App() {
@@ -22,7 +25,9 @@ function App() {
        <Route path="/bar" element={<SearchBar/>} />
        <Route path="/nav" element={<Navbar/>} />
        <Route path="/writereview" element={<WriteReview/>} />
-       
+       <Route path="/analytics" element={<Analytics/>} />
+       <Route path="/BusinessList" element={<BusinessList/>} />
+       <Route path="/business/:businessId/review" element={<WriteReviewForm />} />
       
       {/* <Routes>
         <Route index element={<HomePage />} />

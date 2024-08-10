@@ -104,6 +104,7 @@ const Navbar = () => {
             <Link to="/listyourbusiness" className="text-white">List Your Business</Link>
             {isLoggedIn ? (
               <>
+                <Link to="/analytics" className="text-white">Your Business analytics</Link>
                 <img src="profile.png" alt="Profile" className="w-8 h-8 rounded-full" />
                 <button onClick={handleSignOut} className="text-white bg-orange-500">Sign Out</button>
               </>

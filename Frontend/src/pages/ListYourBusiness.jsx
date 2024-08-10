@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +20,14 @@ const BusinessForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast('Please log in first!');
+      navigate('/signin'); // Redirect to the login page
+    }
+  }, [navigate]); // Only run this effect on component mount
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -31,18 +39,27 @@ const BusinessForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+
+    if (!token) {
+      toast('Please log in first!');
+      navigate('/login'); // Redirect to the login page
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/api/business/business', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Add the Authorization header
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const result = await response.json();
-        toast.success('Business added successfully!');
+        toast('Business added successfully!');
         console.log('Business added:', result);
         setIsSubmitted(true);
         navigate('/'); // Redirect to home page or another page after successful submission
@@ -53,7 +70,7 @@ const BusinessForm = () => {
       }
     } catch (error) {
       console.error('Network error:', error);
-      toast.error('Network error');
+      toast('Network error');
     }
   };
 

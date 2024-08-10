@@ -11,9 +11,9 @@ const handleBusinessCreate = async (req, res) => {
     // Log authenticated user for debugging
     console.log('Authenticated User:', req.user);
 
-    if (!req.user || !req.user._id) {
-      return res.status(400).json({ error: 'User not authenticated' });
-    }
+    // if (!req.user || !req.user._id) {
+    //   return res.status(400).json({ error: 'User not authenticated' });
+    // }
 
     const business = new Business({ 
       name, 

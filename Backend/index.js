@@ -5,6 +5,8 @@ const { connectDb } = require('./Connection/connection');
 const User = require('./Models/User');
 const userrouter = require('./Routes/user');
 const businessrouter = require('./Routes/Business');
+const retrievebusinessrouter=require('./Routes/BusinessRetrieve');
+const reviewsrouter = require('./Routes/Reviews');
 const cookieparser = require('cookie-parser');
 const app = express();
 
@@ -30,6 +32,8 @@ app.get('/home', (req, res) => {
 
 app.use("/api", userrouter);
 app.use("/api/business", businessrouter);
+app.use("/api/retrievebusiness",retrievebusinessrouter);
+app.use('/api/reviews', reviewsrouter);
 
 app.get('/api/location', async (req, res) => {
     const { query } = req.query;
