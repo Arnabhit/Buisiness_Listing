@@ -68,7 +68,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-green-500 p-4 rounded-md">
+    <nav className="bg-green-500 p-4 rounded-md w-full">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white text-2xl">YourApp</Link>
         <div className="flex-1 hidden md:flex items-center justify-center">
