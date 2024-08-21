@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const WriteReviewForm = () => {
-  const { businessId } = useParams(); // Get the business ID from the route
+  const { businessId } = useParams(); // to get the business ID from the route(goyal bhaiya)
 const navigate=useNavigate();
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(1);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -27,7 +27,8 @@ const navigate=useNavigate();
       }
 
       alert('Review submitted successfully');
-      history.push(`/business/${businessId}`); // Redirect to the business detail page
+      (`/business/${businessId}`); // Redirect to the business detail page
+      navigate('/')
     } catch (error) {
       console.error('Error submitting review:', error);
     }

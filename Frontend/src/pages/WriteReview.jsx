@@ -6,6 +6,7 @@ const WriteReview = () => {
   const [businesses, setBusinesses] = useState([]);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [filteredBusinesses, setFilteredBusinesses] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBusinesses = async () => {
@@ -17,22 +18,31 @@ const WriteReview = () => {
         const data = await response.json();
         console.log('Fetched businesses:', data); // Check the response data
         setBusinesses(data);
-        console.log('Businesses email', data.email); // Debug log
+        console.log('Businesses:', businesses); // Debug log
       } catch (error) {
         console.error('Error fetching businesses:', error);
       }
     };
 
     fetchBusinesses();
-  }, []);
-  const navigate = useNavigate();
+  }, [setBusinesses,setSelectedBusiness,setFilteredBusinesses]);
+  useEffect(() => {
+    console.log('Businesses state updated:', businesses); // Log the updated state
+  }, [businesses]);
+
+  const handleBusinessClick = (businessId) => {
+    // Navigate to the review form page with the selected business ID
+    navigate(`/business/${businessId}/review`);
+  };
 
   const handleBusinessSelect = (business) => {
     console.log('Selected business:', business); // Debug log
     if (business) {
       setSelectedBusiness(business);
-      setFilteredBusinesses(businesses.filter(b => b.category === business.category));
-      console.log('Filtered businesses:', filteredBusinesses); // Debug log
+      // Filter businesses based on selected category
+      const filtered = businesses.filter(b => b.category === business);
+      setFilteredBusinesses(filtered);
+      console.log('Filtered businesses:', filtered); // Log the filtered businesses
     } else {
       setSelectedBusiness(null);
       setFilteredBusinesses([]);
@@ -46,7 +56,7 @@ const WriteReview = () => {
       return;
     }
     console.log('Selected business for review:', selectedBusiness);
-    navigate('/BusinessList')
+    //navigate('/BusinessList'); 
   };
 
   return (
@@ -56,13 +66,13 @@ const WriteReview = () => {
         <SearchBar onBusinessSelect={handleBusinessSelect} placeholder="Search for businesses" />
         
         <button onClick={handleSubmit} className="bg-green-500 text-white p-2 rounded">Continue</button>
-
+        
         {selectedBusiness && (
           <div className="mt-6">
             <h2 className="text-xl font-bold mb-2">Selected Business:</h2>
             <div className="border p-4 rounded-md">
               <h3 className="text-lg font-semibold">{selectedBusiness.name}</h3>
-              <p>Category: {businesses.category}</p>
+              <p>Category: {selectedBusiness.category}</p>
               <p>Address: {selectedBusiness.address}</p>
               <p>Phone: {selectedBusiness.phone}</p>
               <p>Email: {selectedBusiness.email}</p>
@@ -78,9 +88,12 @@ const WriteReview = () => {
             <h2 className="text-xl font-bold mb-2">Filtered Businesses:</h2>
             <ul className="space-y-4">
               {filteredBusinesses.map((business) => (
-                <li key={business._id} className="border p-4 rounded-md">
-                  <h3 className="text-lg font-semibold">{business.name}</h3>
-                  <p>Category: {business.category}</p>
+               <li 
+               key={business._id} 
+               className="border p-4 rounded-md cursor-pointer"
+               onClick={() => handleBusinessClick(business._id)} // Handle click
+             >   
+              <p>Category: {business.category}</p>
                   <p>Address: {business.address}</p>
                   <p>Phone: {business.phone}</p>
                   <p>Email: {business.email}</p>

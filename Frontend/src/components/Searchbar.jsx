@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const businesses = ['Restaurants', 'Home Services', 'Auto Services', 'More'];
+const businesses = ['Restaurant', 'Malls', 'shop', 'More'];
 
 const SearchBar = ({ onBusinessSelect }) => {
   const [business, setBusiness] = useState('');

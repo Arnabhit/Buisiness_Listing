@@ -126,7 +126,7 @@ const Navbar = () => {
         <div className="md:hidden">
           <SearchBar onLocationSelect={handleLocationSelect} />
           <div className="flex flex-col space-y-4 mt-2">
-            <Link to="/review" className="text-white">Write a review</Link>
+            <Link to="/writereview" className="text-white">Write a review</Link>
             <Link to="/listyourbusiness" className="text-white">List Your Business</Link>
             {isLoggedIn ? (
               <>

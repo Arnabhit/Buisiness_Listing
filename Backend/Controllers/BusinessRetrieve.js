@@ -1,4 +1,4 @@
-// Controllers/BusinessRetrieve.js
+
 const Business = require('../Models/Business'); // Import the Business model
 
 // Handler function to retrieve businesses
