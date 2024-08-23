@@ -8,6 +8,7 @@ const businessrouter = require('./Routes/Business');
 const retrievebusinessrouter=require('./Routes/BusinessRetrieve');
 const reviewsrouter = require('./Routes/Reviews');
 const cookieparser = require('cookie-parser');
+const path=require('path');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -26,14 +27,12 @@ connectDb("mongodb+srv://arnab:ARNABBARUA@cluster0.fenh9vq.mongodb.net/?retryWri
     });
 
 
-app.get('/home', (req, res) => {
-    res.send('Hello World');
-});
 
 app.use("/api", userrouter);
 app.use("/api/business", businessrouter);
 app.use("/api/retrievebusiness",retrievebusinessrouter);
 app.use('/api/reviews', reviewsrouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/api/location', async (req, res) => {
     const { query } = req.query;

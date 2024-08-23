@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from './Footer';
+import Businesslist from './BusinessList';
 
 const images = [
   'home1.jpg',
@@ -48,6 +49,7 @@ const Header = () => {
           </div>
         ))}
       </Slider>
+      <Businesslist/>
       <Footer />
     </div>
   );

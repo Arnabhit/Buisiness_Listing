@@ -16,6 +16,7 @@ const BusinessForm = () => {
     latitude: '',
     longitude: '',
   });
+  const [image,setImage]=useState();
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
@@ -36,27 +37,37 @@ const BusinessForm = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const token = localStorage.getItem('token'); // Retrieve the token from local storage
-
+  
     if (!token) {
       toast('Please log in first!');
       navigate('/login'); // Redirect to the login page
       return;
     }
-
+  
+    const data = new FormData();
+    for (const key in formData) {
+      data.append(key, formData[key]);
+    }
+    if (image) {
+      data.append('image', image); // Append the image file
+    }
+  
     try {
       const response = await fetch('http://localhost:3000/api/business/business', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`, // Add the Authorization header
         },
-        body: JSON.stringify(formData),
+        body: data,
       });
-
+  
       if (response.ok) {
         const result = await response.json();
         toast('Business added successfully!');
@@ -73,6 +84,7 @@ const BusinessForm = () => {
       toast('Network error');
     }
   };
+  
 
   return (
     <div className="container mx-auto p-4">
@@ -162,13 +174,12 @@ const BusinessForm = () => {
           ></textarea>
         </div>
         <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL</label>
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
           <input
-            type="text"
-            id="imageUrl"
-            name="imageUrl"
-            value={formData.imageUrl}
-            onChange={handleChange}
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleImageChange}
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
           />
         </div>

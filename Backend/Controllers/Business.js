@@ -3,17 +3,15 @@ const Business = require('../Models/Business');
 
 const handleBusinessCreate = async (req, res) => {
   try {
-    const { name, category, address, phone, email, website, description, imageUrl, latitude, longitude } = req.body;
+    const { name, category, address, phone, email, website, description, latitude, longitude } = req.body;
     
-    // Log request body for debugging
-    console.log('Request Body:', req.body);
-    
-    // Log authenticated user for debugging
-    console.log('Authenticated User:', req.user);
+    // Check for the image file and get the URL/path
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
 
-    // if (!req.user || !req.user._id) {
-    //   return res.status(400).json({ error: 'User not authenticated' });
-    // }
+
+    console.log('Request Body:', req.body);
+    console.log('Authenticated User:', req.user);
+    console.log('Image File:', req.file);
 
     const business = new Business({ 
       name, 
