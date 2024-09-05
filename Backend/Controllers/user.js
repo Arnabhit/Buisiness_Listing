@@ -19,7 +19,7 @@ const handleUserSignup = async (req, res) => {
         res.cookie("uid", sessionId);
 
         // Generate JWT token
-        const token = jwt.sign({ id: newUser._id }, process.env.KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: newUser._id }, process.env.KEY, { expiresIn: '30d' });
         console.log(token);
 
         // Save token to user's document
@@ -53,7 +53,7 @@ const handleUserSignin = async (req, res) => {
         user.lastLogin = new Date();
         await user.save();
 
-        const token = jwt.sign({ userId: user._id }, process.env.KEY, { expiresIn: '30days' });
+        const token = jwt.sign({ userId: user._id }, process.env.KEY, { expiresIn: '30d' });
         res.cookie('token', token, { httpOnly: true });
 
         const userDetails = {
